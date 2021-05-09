@@ -18,8 +18,13 @@ $(document).ready(function () {
     let año = fecha.getFullYear();
 
     if (mes < 10) {
-        $('#txtFechaTarea').attr('min', `${año}-0${mes}-${dia}`);    
-    } else {
+        $('#txtFechaTarea').attr('min', `${año}-0${mes}-${dia}`); 
+        if (dia < 10) {
+            $('#txtFechaTarea').attr('min', `${año}-0${mes}-0${dia}`);
+        }   
+    } else if (dia < 10) {
+        $('#txtFechaTarea').attr('min', `${año}-0${mes}-0${dia}`);
+    }else {
         $('#txtFechaTarea').attr('min', `${año}-${mes}-${dia}`);
     }
     
