@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media-query.css">
 </head>
 <body>
 
@@ -13,20 +14,22 @@
 
     <main>
         <form action="">
-            <h2>Guardar Tarea</h2>
+            <h2 id="formGuardar">Guardar Tarea</h2>
 
-            <label for="txtNombreTarea">Nombre de la tarea</label>
-            <input type="text" id="txtNombreTarea" placeholder="Hacer ensayo, Realizar un mapa conceptual, etc" class="input-form" required><br>
-    
-            <label for="txtDescripcionTarea">Descripción de la tarea</label>
-            <textarea name="" id="txtDescripcionTarea" cols="30" rows="10" class="input-form" placeholder="Realizar un ensayo sobre la segunda guerra mundial y el impacto que este tuvo" required></textarea><br>
-    
-            <label for="txtFecha">Fecha de entrega</label><br>
-            <input type="date" name="" id="txtFechaTarea" class="input-form" required><br>
-            
-            <div class="container-botones-form">
-                <input type="button" id="btnGuardar" value="Guardar Tarea">
-                <input type="button" id="btnBorrarTodo" value="Borrar todas las tareas">
+            <div id="formItems">
+                <label for="txtNombreTarea">Nombre de la tarea</label>
+                <input type="text" id="txtNombreTarea" placeholder="Hacer ensayo, Realizar un mapa conceptual, etc" class="input-form" required><br>
+        
+                <label for="txtDescripcionTarea">Descripción de la tarea</label>
+                <textarea name="" id="txtDescripcionTarea" cols="30" rows="10" class="input-form" placeholder="Realizar un ensayo sobre la segunda guerra mundial y el impacto que este tuvo" required></textarea><br>
+        
+                <label for="txtFecha">Fecha de entrega</label><br>
+                <input type="date" name="" id="txtFechaTarea" class="input-form" required><br>
+                
+                <div class="container-botones-form">
+                    <input type="button" id="btnGuardar" value="Guardar Tarea">
+                    <input type="button" id="btnBorrarTodo" value="Borrar todas las tareas">
+                </div>
             </div>
         </form>
 

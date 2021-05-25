@@ -1,4 +1,27 @@
 $(document).ready(function () {   
+
+    if (window.innerWidth <= 1024) {
+        let estadoGuardar = false;
+        console.log("Está viendo la página desde un celular");
+        $('#formGuardar').click(function (e) {
+            if (!estadoGuardar) {
+                $('#formItems').css({
+                    height: 'auto'
+                });
+                $('.btn-info').text("Información");
+                estadoGuardar = true;
+            } else {
+                $('#formItems').css({
+                    height: '0px'
+                });
+                $('.btn-info').text("i");
+                estadoGuardar = false;
+            }
+        });
+    } else {
+        console.log("Está viendo desde un pc");
+    }
+
     let numeroTareas = 0;
     let tarea = {  //Variable que contiene los datos de la tarea
         'Nombre': $('#txtNombreTarea').val(), 
@@ -33,10 +56,6 @@ $(document).ready(function () {
         if ($('#txtNombreTarea').val() == "" || $('#txtFecha').val() == "") {
             alert("Todos los campos deben estar llenos para poder registrar la tarea");
         } else {
-
-            /*if ($('#txtFecha').val() == ) {
-                
-            }*/
             for (let i in tarea) { //For para capturar los datos de los input en el array
                 tarea[i] = $(`#txt${i}Tarea`).val();
             }
