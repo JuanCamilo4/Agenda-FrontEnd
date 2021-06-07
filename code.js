@@ -1,6 +1,16 @@
 $(document).ready(function () {   
-
+    
     if (window.innerWidth <= 1024) {
+        //Código para confidurar las clases del botón información
+        $('#containerInfo').addClass('containerInfoCel');
+        $('.btn-info').text("Información");
+
+        $('.cerrarInfo').css({
+            display: 'flex'
+            
+        });
+
+        //Botón para desplegar el formulario de guardar
         let estadoGuardar = false;
         console.log("Está viendo la página desde un celular");
         $('#formGuardar').click(function (e) {
@@ -8,17 +18,21 @@ $(document).ready(function () {
                 $('#formItems').css({
                     height: 'auto'
                 });
-                $('.btn-info').text("Información");
                 estadoGuardar = true;
             } else {
                 $('#formItems').css({
                     height: '0px'
                 });
-                $('.btn-info').text("i");
                 estadoGuardar = false;
             }
         });
     } else {
+        $('.btn-info').text("i");
+        $('#containerInfo').addClass('containerInfoPC');
+        $('.cerrarInfo').css({
+            display: 'none'
+            
+        });
         console.log("Está viendo desde un pc");
     }
 
@@ -51,6 +65,53 @@ $(document).ready(function () {
         $('#txtFechaTarea').attr('min', `${año}-${mes}-${dia}`);
     }
     
+    $('.btn-info').click(function (e) { 
+        $('#containerInfo').addClass('infoAbiertaCel');
+        $('#containerInfo').removeClass('infoCerradaCel');
+        $('main').css({
+            filter: 'brightness(0.2)'
+            
+        });
+    });
+    $('.cerrarInfo').click(function (e) { 
+        $('#containerInfo').addClass('infoCerradaCel');
+        $('#containerInfo').removeClass('infoAbiertaCel');
+        $('main').css({
+            filter: 'brightness(1)'
+            
+        }); 
+    });
+    $('main').click(function (e) { 
+        if (window.innerWidth <= 1024) {
+            $('#containerInfo').addClass('infoCerradaCel');
+            $('#containerInfo').removeClass('infoAbiertaCel');
+            $('main').css({
+                filter: 'brightness(1)'
+                
+            }); 
+        }
+    });
+
+    $('#containerInfoPadre').mouseover(function () { 
+        if (window.innerWidth >= 1024) {
+            $('#containerInfo').addClass('infoAbierta');
+            $('#containerInfo').removeClass('infoCerrada');
+            $('main').css({
+                filter: 'brightness(0.2)'
+                
+            });
+        }
+    });
+    $('#containerInfoPadre').mouseout(function () { 
+        if (window.innerWidth >= 1024) {
+            $('#containerInfo').addClass('infoCerrada');
+            $('#containerInfo').removeClass('infoAbierta');
+            $('main').css({
+                filter: 'brightness(1)'
+                
+            });
+        }
+    });
 
     $('#btnGuardar').click(function (e) { 
         if ($('#txtNombreTarea').val() == "" || $('#txtFecha').val() == "") {
@@ -76,7 +137,22 @@ $(document).ready(function () {
         agregarTarea(numeroTareas);
     }
 
-    const agregarTarea = (tareaMax) =>{ //Mostrar Tarea en un contenedor propio al gruadar
+    function recorrerTareas(contador, tareaMostrar){
+        for (let t in tarea) {//For para recorrer todo el Array del la ultima tarea
+            if (t == 'Nombre') {
+                $(`#tarea${contador}`).append(`<p class='item-tarea'><b>Tarea:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
+            }
+            if (t == 'Descripcion') {
+                $(`#tarea${contador}`).append(`<p class='item-tarea'><b>Descripción:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
+            }
+            if (t == 'Fecha') {
+                $(`#tarea${contador}`).append(`<p class='item-tarea'><b>Fecha de entrega:</b><br> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
+            }
+            console.log(JSON.parse(tareaMostrar)[t]);
+        }
+    }
+
+    const agregarTarea = tareaMax =>{ //Mostrar Tarea en un contenedor propio al gruadar
         let tareaMostrar = localStorage.getItem(`tarea${tareaMax}`); //Obtencion de los datos de la ultima tarea
 
         //Creación del div cdonde se va a guardar la ultima tarea
@@ -85,22 +161,11 @@ $(document).ready(function () {
         elementTarea.setAttribute('id', `tarea${tareaMax}`);
         $('.container-mostrar-tareas').append(elementTarea);
 
-        for (let t in tarea) {//For para recorrer todo el Array del la ultima tarea
-            if (t == 'Nombre') {
-                $(`#tarea${tareaMax}`).append(`<p class='item-tarea'><b>Tarea:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-            }
-            if (t == 'Descripcion') {
-                $(`#tarea${tareaMax}`).append(`<p class='item-tarea'><b>Descripción:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-            }
-            if (t == 'Fecha') {
-                $(`#tarea${tareaMax}`).append(`<p class='item-tarea'><b>Fecha de entrega:</b><br> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-            }
-            console.log(JSON.parse(tareaMostrar)[t]);
+        recorrerTareas(tareaMax, tareaMostrar);
 
-            $('#txtNombreTarea').val("");
-            $('#txtDescripcionTarea').val("");
-            $('#txtFechaTarea').val("");
-        }
+        $('#txtNombreTarea').val("");
+        $('#txtDescripcionTarea').val("");
+        $('#txtFechaTarea').val("");
 
         let btnBorrarTarea = document.createElement('button');
         btnBorrarTarea.setAttribute('id', `btnBorrarTarea${tareaMax}`);
@@ -141,18 +206,8 @@ $(document).ready(function () {
             btnBorrarTarea.innerHTML = "Finalizar Tarea";
 
             $('.container-mostrar-tareas').append(elementTarea); 
-            for (let t in tarea) {
-                if (t == 'Nombre') {
-                    $(`#tarea${i}`).append(`<p class='item-tarea'><b>Tarea:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-                }
-                if (t == 'Descripcion') {
-                    $(`#tarea${i}`).append(`<p class='item-tarea'><b>Descripción:</b> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-                }
-                if (t == 'Fecha') {
-                    $(`#tarea${i}`).append(`<p class='item-tarea'><b>Fecha de entrega:</b><br> ${JSON.parse(tareaMostrar)[t]}</p><br>`);
-                }
-                console.log(JSON.parse(tareaMostrar)[t]);
-            }
+            recorrerTareas(i, tareaMostrar); //Funcion para recorrer el array con los datos de las tareas
+        
             $(`#tarea${i}`).append(btnBorrarTarea);
 
             var estadoTarea = localStorage.getItem(`estadoTarea${i}`); //Se obtiene el estado de las tareas
