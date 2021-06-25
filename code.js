@@ -10,21 +10,20 @@ $(document).ready(function () {
             
         });
 
+        $('#containerInfo').hide();
+        $('.btn-info').click(function(e){
+            $('#containerInfo').show();    
+        });
+        $('.cerrarInfo').click(function (e) { 
+            $('#containerInfo').hide();
+        });
+
         //Botón para desplegar el formulario de guardar
-        let estadoGuardar = false;
+        $('#formItems').hide();
         console.log("Está viendo la página desde un celular");
         $('#formGuardar').click(function (e) {
-            if (!estadoGuardar) {
-                $('#formItems').css({
-                    height: 'auto'
-                });
-                estadoGuardar = true;
-            } else {
-                $('#formItems').css({
-                    height: '0px'
-                });
-                estadoGuardar = false;
-            }
+            console.log("Hola")
+            $('#formItems').toggle(200);
         });
     } else {
         $('.btn-info').text("i");

@@ -8,10 +8,7 @@
         width: auto;
         margin-bottom: 5%;
     }
-    #formItems{
-        height: 0px;
-        overflow: hidden;
-    }
+    
     #formItems label{
         font-size: 22px;
     }
