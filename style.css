@@ -205,6 +205,7 @@ form input[type=date]{
     z-index: 2000 !important;
 }
 .containerInfoCel{
+    bottom: 6rem;
     margin: auto;
     left: 0% !important;
     padding: 4%;
@@ -225,9 +226,6 @@ form input[type=date]{
     align-items: center;
     font-weight: bold;
     margin-bottom: 2.5%;
-}
-.infoAbiertaCel{
-    
 }
 .infoCerradaCel{
     bottom: -90% !important;
