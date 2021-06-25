@@ -12,9 +12,11 @@ $(document).ready(function () {
 
         $('#containerInfo').hide();
         $('.btn-info').click(function(e){
+            $('#containerInfo').css('zIndex', '2000');
             $('#containerInfo').show();    
         });
-        $('.cerrarInfo').click(function (e) { 
+        $('.cerrarInfo').click(function (e) {
+            $('#containerInfo').css('zIndex', '-2000');
             $('#containerInfo').hide();
         });
 
@@ -29,8 +31,7 @@ $(document).ready(function () {
         $('.btn-info').text("i");
         $('#containerInfo').addClass('containerInfoPC');
         $('.cerrarInfo').css({
-            display: 'none'
-            
+            display: 'none'     
         });
         console.log("Está viendo desde un pc");
     }
